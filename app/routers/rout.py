@@ -6,6 +6,7 @@ from fastapi import (APIRouter, File, Form, Query, UploadFile,
 from pydantic import Field
 import pathlib
 from fastapi.responses import FileResponse
+from app.neiro import create_my_photo
 from app.queries.rookeries import create_rezultat, createrook, get_results_period, get_results_sql, getrook
 from app.utils.utils import format_records
 from app.models import ResultsOut, Rook, RookOut, SuccessfulResponse
@@ -30,6 +31,7 @@ async def add_results( data: datetime = Form(..., describe="Время запр�
                        id: int = Form(...,describe = "Id лежбища"),
                        upload_file: UploadFile = File(...)):
         url = await downloadfilesproduct(upload_file)
+        val = await create_my_photo(url)
         await create_rezultat(url,data,id)
         return SuccessfulResponse()
 
