@@ -16,15 +16,15 @@ async def createrook(rook: Rook) -> None:
              VALUES ($1)"""
     await DB.con.execute(sql,rook.name)
 
-async def create_rezultat(url: str ,date:datetime, id: int) -> None:
-    sql = """INSERT INTO results(photo,dat,rookery_id)
-             VALUES ($1,$2,$3) """
-    await DB.con.execute(sql,url,date.replace(tzinfo=None),id)
+async def create_rezultat(url: str ,date:datetime, id: int, val : int) -> None:
+    sql = """INSERT INTO results(photo,dat,rookery_id,valruses_number)
+             VALUES ($1,$2,$3,$4) """
+    await DB.con.execute(sql, url, date.replace(tzinfo=None), id, val)
 
 async def get_results_sql(id:int) -> Record:
     sql = """SELECT dat, valruses_number, photo 
-             FROM results 
-             WHERE rookery_id = $1 """
+              FROM results 
+              WHERE rookery_id = $1 """
     return await DB.con.fetch(sql,id)
 
 async def get_results_period(id: int,datestart:datetime,dateend:datetime) -> Record:

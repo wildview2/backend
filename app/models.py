@@ -1,5 +1,5 @@
 
-from datetime import datetime
+from datetime import date
 from fastapi import Form
 from pydantic import BaseModel, Field
 
@@ -19,6 +19,6 @@ class RookOut(BaseModel):
     # может добавить долготу и высоту для лежбища
 
 class ResultsOut(BaseModel):
-    dat: datetime = Field(None, title='Время фотки')
+    dat: date = Field(None, title='Время фотки')
     valruses_number: int =Field(..., title='ID лежбища')
     photo: str = Field(..., title='ID лежбища')
