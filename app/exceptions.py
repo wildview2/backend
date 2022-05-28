@@ -19,3 +19,20 @@ class InternalServerError(Exception):
             'message': self.message,
             'debug': self.debug,
         }
+
+
+class CommonException(Exception):
+    def __init__(self, code: int, error: str) -> None:
+        super().__init__()
+        self.error = error
+        self.code = code
+
+
+class NotFoundException(CommonException):
+    def __init__(self, error: str) -> None:
+        super().__init__(status.HTTP_404_NOT_FOUND, error)
+
+
+class PhotoNotFoundException(NotFoundException):
+    def __init__(self) -> None:
+        super().__init__('Файл не найден')

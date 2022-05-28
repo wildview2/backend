@@ -5,11 +5,12 @@ from fastapi import (APIRouter, BackgroundTasks, File, Form, Query, UploadFile,
 from pydantic import Field
 import pathlib
 from fastapi.responses import FileResponse
+from app.exceptions import PhotoNotFoundException
 from app.neiro import background_neiro, create_my_photo
 from app.queries.rookeries import create_rezultat, createrook, get_results_period, get_results_sql, getrook
 from app.utils.utils import format_records
 from app.models import ResultsOut, Rook, RookOut, SuccessfulResponse
-from app.routers.download import downloadfilesproduct
+
 
 _router = APIRouter(tags=["Rook"])
 
@@ -49,6 +50,8 @@ async def get_photo_by_name(image_name: str = Query(..., describe = "id лежб
     # проверка на существование файла
     file_path = folder_path.joinpath(pathlib.Path(f"assets/{image_name}"))
     # TODO: Добавить в Exception
+    if not pathlib.Path.is_file(file_path):
+        raise PhotoNotFoundException
     return FileResponse(file_path)
 
 @_router.get("/rookeries/{id}/periods",response_model=list[ResultsOut])
