@@ -27,6 +27,7 @@ foo@bar:~$ cd simple
 foo@bar:~$ virtualenv env
 foo@bar:~$ source env/bin/activate
 foo@bar:~$ pip install -r requirements.txt
+foo@bar:~$ git clone https://github.com/wildview2/neuro
 ```
 
 ## Запуск Windows
@@ -36,4 +37,6 @@ foo@bar:~$ cd simple
 foo@bar:~$ virtualenv env
 foo@bar:~$ env/Scripts/activate.ps1
 foo@bar:~$ pip install -r requirements.txt
+foo@bar:~$ git clone https://github.com/wildview2/neuro
 ```
+# Добавляем веса в /neuro с нашего  гугл диска (500 эпох):
