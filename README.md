@@ -40,3 +40,5 @@ foo@bar:~$ pip install -r requirements.txt
 foo@bar:~$ git clone https://github.com/wildview2/neuro
 ```
 # Добавляем веса в /neuro с нашего  гугл диска (500 эпох):
+https://drive.google.com/file/d/1-L6-CsiTX17NIIQbuRWtqHJEz6evjGNP/view?usp=sharing
+#Переимновываем best.pt -> wildview.pt
