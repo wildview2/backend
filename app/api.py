@@ -9,11 +9,12 @@ from app.routers.rout import _router
 import logging
 import time
 from logging import getLogger
+from starlette.middleware.cors import CORSMiddleware
 
 logger = getLogger(__name__)
 
 logging.basicConfig(level=logging.DEBUG, format="%(message)s")
-
+origins = ["*"]
 
 app = FastAPI(title='BackHack')
 
@@ -63,7 +64,7 @@ async def unicorn_api_exception_handler(request: Request, exc: CommonException):
         content=exc.error
     )   
 
-    
+
 @app.on_event('startup')
 async def startup() -> None:
     await DB.connect_db()
@@ -73,6 +74,13 @@ async def shutdown() -> None:
     await DB.connect_db()
 
 app.include_router(_router)
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+)
 
 
 

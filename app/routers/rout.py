@@ -1,6 +1,6 @@
 
 from datetime import date, datetime
-from fastapi import (APIRouter, BackgroundTasks, File, Form, Query, UploadFile,
+from fastapi import (APIRouter, BackgroundTasks, File, Form, Path, Query, UploadFile,
                      status)
 from pydantic import Field
 import pathlib
@@ -44,8 +44,8 @@ async def get_results(id: int = Query(..., describe = "id лежбища") ):
        rez = format_records(await get_results_sql(id), ResultsOut)
        return rez
 
-@_router.get("/rookeries/{iamge_name}/photo")
-async def get_photo_by_name(image_name: str = Query(..., describe = "id лежбища") ):
+@_router.get("/rookeries/{image_name}/photo")
+async def get_photo_by_name(image_name: str = Path(..., describe = "id лежбища") ):
     folder_path = pathlib.Path(__file__).parent.resolve()
     # проверка на существование файла
     file_path = folder_path.joinpath(pathlib.Path(f"assets/{image_name}"))
